@@ -3,7 +3,6 @@ body {
     'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0;
 }
 
 p {
@@ -17,37 +16,35 @@ img {
   height: 100%;
   height: auto;
 }
-@media screen and (min-width: 480px) {
-  .container {
-    width: 320px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+// @media screen and (min-width: 480px) {
+//   .container {
+//     width: 320px;
+//     margin-left: auto;
+//     margin-right: auto;
+//   }
+// }
 
-@media screen and (min-width: 768px) {
-  .container {
-    width: 768px;
-  }
-}
+// @media screen and (min-width: 768px) {
+//   .container {
+//     width: 768px;
+//   }
+// }
 
-@media screen and (min-width: 1440px) {
-  .container {
-    width: 1440px;
-  }
-}
-.container {
-  padding-left: 10px;
-  padding-right: 10px;
-}
+// @media screen and (min-width: 1440px) {
+//   .container {
+//     width: 1440px;
+//   }
+// }
+// .container {
+//   padding-left: 20px;
+//   padding-right: 20px;
+// }
 .search-form {
-  padding-top: 20px;
+  padding-top: 30px;
   display: flex;
-  // margin-bottom: 40px;
   justify-content: center;
   background-color: blue;
   padding-bottom: 10px;
-  position: relative;
   justify-content: center;
   position: fixed;
   width: 100%;
@@ -87,6 +84,7 @@ input {
   justify-content: center;
   margin-top: -20px;
   margin-left: -20px;
+  padding-top: 60px;
 }
 
 .photo-card {
