@@ -16,9 +16,25 @@ img {
   max-width: 100%;
   height: auto;
 }
-.section {
-  padding-bottom: 20px;
-}
+// @media screen and (min-width: 480px) {
+//   .container {
+//     width: 320px;
+//     margin-left: auto;
+//     margin-right: auto;
+//   }
+// }
+
+// @media screen and (min-width: 768px) {
+//   .container {
+//     width: 768px;
+//   }
+// }
+
+// @media screen and (min-width: 1440px) {
+//   .container {
+//     width: 1440px;
+//   }
+// }
 
 .search-form {
   padding: 40px;
@@ -64,15 +80,15 @@ input {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  margin-top: -30px;
-  margin-left: -30px;
+  margin-top: -20px;
+  margin-left: -20px;
 }
 
 .photo-card {
-  flex-basis: calc((100% - 120px) / 4);
-  margin-left: 30px;
-  margin-top: 30px;
+  flex-basis: calc((100% - 80px) / 4);
+  margin-left: 20px;
+  margin-top: 20px;
+  min-width: 320px;
   box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.16), 0px 4px 4px rgba(0, 0, 0, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.12);
   cursor: pointer;

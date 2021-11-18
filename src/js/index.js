@@ -56,9 +56,9 @@ function renderGallery(images) {
     const markup = images.map((image => {
         return `
         <div class="photo-card">
-        <a class="gallery__link" href="${image.largeImageURL}"></a>
+        <a class="gallery__link" href="${image.largeImageURL}">
   <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
- 
+ </a>
   <div class="info">
     <p class="info-item">
       <b>Likes</b> <span> ${image.likes}</span>
