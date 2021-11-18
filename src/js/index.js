@@ -21,7 +21,6 @@ loadMoreBtn.addEventListener('click', onloadMoreBtn);
 function onloadMoreBtn() {
   page += 1;
   fetchImages()
-  
 }
 
 function onSearchFormSabmit(e) {
@@ -58,7 +57,7 @@ function renderGallery(images) {
         return `
         <div class="photo-card">
         <a class="gallery__link" href="${image.largeImageURL}">
-  <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+  <img class="gallery__image" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
   </a>
   <div class="info">
     <p class="info-item">
