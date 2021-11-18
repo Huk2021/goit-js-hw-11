@@ -33,10 +33,13 @@ const searchQuery = searchQueryInput.value.trim();
     console.log(searchQuery);
     searchImages(searchQuery, page, perPage)
         .then(({ data }) => {
-            console.log(data.hits);
-            if (data.hits.length === 0) {
-                Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
-            } 
+          console.log(data.hits);
+          console.log(data.hits.length);
+          if (data.hits.length === 0) {
+              loadMoreBtn.classList.add('is-hidden');
+              Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
+            return
+          }
           renderGallery(data.hits);
           loadMoreBtn.classList.remove('is-hidden');
           if (data.hits.length !== 0) {
