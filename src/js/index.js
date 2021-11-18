@@ -49,7 +49,10 @@ const searchQuery = searchQueryInput.value.trim();
           if (data.hits.length < 40 && data.hits.length!==0 ) {
             Notify.failure(`We're sorry, but you've reached the end of search results.`);
             loadMoreBtn.classList.add('is-hidden');
-            }
+            return
+          }
+          
+  
         })
         .catch(error => console.log(error));
 }
@@ -82,7 +85,8 @@ function renderGallery(images) {
     const lightbox = new SimpleLightbox('.gallery a', {
     captionDelay: 250,
     captionsData: 'alt', 
-});   
+    });
+  gallery.refresh();
 }
 
 
