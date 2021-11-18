@@ -1,6 +1,9 @@
 import '/./sass/main.scss';
 import { searchImages } from './api';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 
 const searchForm = document.querySelector('[id="search-form"]');
 const galleryDiv = document.querySelector('.gallery');
@@ -10,14 +13,24 @@ const loadMoreBtn = document.querySelector('.load-more');
 let page = 1;
 let perPage = 40;
 
+
 loadMoreBtn.classList.add('is-hidden');
 
 searchForm.addEventListener('submit', onSearchFormSabmit);
+loadMoreBtn.addEventListener('click', onloadMoreBtn);
+function onloadMoreBtn() {
+  page += 1;
+  fetchImages()
+  
+}
 
 function onSearchFormSabmit(e) {
     e.preventDefault();
-    galleryDiv.innerHTML = '';
-    const searchQuery = searchQueryInput.value.trim();
+  galleryDiv.innerHTML = '';
+  fetchImages()
+}
+function fetchImages() {
+const searchQuery = searchQueryInput.value.trim();
     console.log(searchQuery);
     searchImages(searchQuery, page, perPage)
         .then(({ data }) => {
@@ -28,20 +41,24 @@ function onSearchFormSabmit(e) {
             renderGallery(data.hits);
              Notify.success(`Hooray! We found ${data.totalHits} images.`);
              if (page < perPage) {
-            loadMoreBtn.classList.remove('is-hidden');;
+              loadMoreBtn.classList.remove('is-hidden');;
+             }
+            if (data.hits.length < 40) {
+              Notify.failure(`We're sorry, but you've reached the end of search results.`);
             }
+          console.log(data.hits.length);
         })
-        .catch (error => console.log(error));
-    }
-  
-    
+        .catch(error => console.log(error));
+}
 
+ 
 function renderGallery(images) {
     const markup = images.map((image => {
-        return `<a class="gallery__link" href="${image.largeImageURL}">
+        return `
         <div class="photo-card">
+        <a class="gallery__link" href="${image.largeImageURL}"></a>
   <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-  </a>
+ 
   <div class="info">
     <p class="info-item">
       <b>Likes</b> <span> ${image.likes}</span>
@@ -56,8 +73,19 @@ function renderGallery(images) {
       <b>Downloads</b><span>${image.downloads}</span>
     </p>
   </div>
-</div>`
+</div>
+ `
     })).join('');
     galleryDiv.insertAdjacentHTML('beforeend', markup);
     
 }
+
+
+
+
+
+const lightbox = new SimpleLightbox('.gallery a', {
+    captionDelay: 250,
+    captionsData: 'alt', 
+});   
+  
