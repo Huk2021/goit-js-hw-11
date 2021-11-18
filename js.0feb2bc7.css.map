@@ -1,0 +1,1 @@
+{"version":3,"sources":["sass/main.scss"],"names":[],"mappings":"AAAA,WACE,aAAA,CACA,gBAAA,CACA,iBAAA,CACA,YAAA,CACA,eAGF,qBACE","file":"js.0feb2bc7.css","sourceRoot":"../src","sourcesContent":[".load-more {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n  font: inherit;\n  cursor: pointer;\n}\n\n.load-more.is-hidden {\n  display: none;\n}\n"]}
