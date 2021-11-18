@@ -38,15 +38,16 @@ const searchQuery = searchQueryInput.value.trim();
             if (data.hits.length === 0) {
                 Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
             } 
-            renderGallery(data.hits);
-             Notify.success(`Hooray! We found ${data.totalHits} images.`);
-             if (page < perPage) {
-              loadMoreBtn.classList.remove('is-hidden');;
-             }
-            if (data.hits.length < 40) {
-              Notify.failure(`We're sorry, but you've reached the end of search results.`);
+          renderGallery(data.hits);
+          loadMoreBtn.classList.remove('is-hidden');
+          if (data.hits.length !== 0) {
+            Notify.success(`Hooray! We found ${data.totalHits} images.`);
+          }
+          
+          if (data.hits.length < 40 && data.hits.length!==0 ) {
+            Notify.failure(`We're sorry, but you've reached the end of search results.`);
+            loadMoreBtn.classList.add('is-hidden');
             }
-          console.log(data.hits.length);
         })
         .catch(error => console.log(error));
 }
@@ -58,7 +59,7 @@ function renderGallery(images) {
         <div class="photo-card">
         <a class="gallery__link" href="${image.largeImageURL}">
   <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
- </a>
+  </a>
   <div class="info">
     <p class="info-item">
       <b>Likes</b> <span> ${image.likes}</span>
@@ -73,19 +74,18 @@ function renderGallery(images) {
       <b>Downloads</b><span>${image.downloads}</span>
     </p>
   </div>
-</div>
- `
+</div>`
     })).join('');
     galleryDiv.insertAdjacentHTML('beforeend', markup);
-    
+    const lightbox = new SimpleLightbox('.gallery a', {
+    captionDelay: 250,
+    captionsData: 'alt', 
+});   
 }
 
 
 
 
 
-const lightbox = new SimpleLightbox('.gallery a', {
-    captionDelay: 250,
-    captionsData: 'alt', 
-});   
+
   
