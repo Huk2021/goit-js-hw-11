@@ -44,21 +44,23 @@ const searchQuery = searchQueryInput.value.trim();
         .then(({ data }) => {
           console.log(data.hits);
           console.log(data.hits.length);
-          if (data.hits.length === 0) {
-            Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
-            loadMoreBtn.hide(); 
-          }
           renderGallery(data.hits);
           loadMoreBtn.show();
+          loadMoreBtn.show();
             if (data.hits.length !== 0) {
-            Notify.success(`Hooray! We found ${data.totalHits} images.`);
+              Notify.success(`Hooray! We found ${data.totalHits} images.`);
+              
           }
-          
+          if (data.hits.length === 0) {
+            Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
+            loadMoreBtn.hide();
+            return
+          }
+                    
           if (data.hits.length < 40 && data.hits.length!==0 ) {
             Notify.failure(`We're sorry, but you've reached the end of search results.`);
             loadMoreBtn.hide();
-            
-            
+            return      
           }
         })
         .catch(error => console.log(error));
@@ -95,6 +97,7 @@ function renderGallery(images) {
     captionsData: 'alt', 
   });
   lightbox.refresh();
+  
 }
 
 
