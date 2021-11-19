@@ -8,7 +8,7 @@ import LoadMoreBtn from './load-more-btn';
 const searchForm = document.querySelector('[id="search-form"]');
 const galleryDiv = document.querySelector('.gallery');
 const searchQueryInput = document.querySelector('[name="searchQuery"]');
-// const loadMoreBtn = document.querySelector('.load-more');
+
 
 let page = 1;
 let perPage = 40;
@@ -18,7 +18,7 @@ const loadMoreBtn = new LoadMoreBtn({
   hidden: true,
 });
 
-// loadMoreBtn.classList.add('is-hidden');
+
 
 searchForm.addEventListener('submit', onSearchFormSabmit);
 loadMoreBtn.refs.button.addEventListener('click', onloadMoreBtn);
@@ -45,21 +45,19 @@ const searchQuery = searchQueryInput.value.trim();
           console.log(data.hits);
           console.log(data.hits.length);
           if (data.hits.length === 0) {
-              // loadMoreBtn.classList.add('is-hidden');
-              Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
-            
+            Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
+            loadMoreBtn.hide(); 
           }
           renderGallery(data.hits);
           loadMoreBtn.show();
-          // loadMoreBtn.classList.remove('is-hidden');
-          if (data.hits.length !== 0) {
+            if (data.hits.length !== 0) {
             Notify.success(`Hooray! We found ${data.totalHits} images.`);
           }
           
           if (data.hits.length < 40 && data.hits.length!==0 ) {
             Notify.failure(`We're sorry, but you've reached the end of search results.`);
             loadMoreBtn.hide();
-            // loadMoreBtn.classList.add('is-hidden');
+            
             
           }
         })
