@@ -53,6 +53,10 @@ input {
   display: none;
 }
 
+.button > .spinner.is-hidden {
+  display: none;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
