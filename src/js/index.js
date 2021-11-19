@@ -3,30 +3,39 @@ import { searchImages } from './api';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-
+import LoadMoreBtn from './load-more-btn';
 
 const searchForm = document.querySelector('[id="search-form"]');
 const galleryDiv = document.querySelector('.gallery');
 const searchQueryInput = document.querySelector('[name="searchQuery"]');
-const loadMoreBtn = document.querySelector('.load-more');
+// const loadMoreBtn = document.querySelector('.load-more');
 
 let page = 1;
 let perPage = 40;
 
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '[data-action="load-more"]',
+  hidden: true,
+});
 
-loadMoreBtn.classList.add('is-hidden');
+// loadMoreBtn.classList.add('is-hidden');
 
 searchForm.addEventListener('submit', onSearchFormSabmit);
-loadMoreBtn.addEventListener('click', onloadMoreBtn);
+loadMoreBtn.refs.button.addEventListener('click', onloadMoreBtn);
+
 function onloadMoreBtn() {
+  loadMoreBtn.disable();
   page += 1;
   fetchImages()
+  loadMoreBtn.enable();
 }
 
 function onSearchFormSabmit(e) {
-    e.preventDefault();
+  e.preventDefault();
+  page = 1;
   galleryDiv.innerHTML = '';
   fetchImages()
+  
 }
 function fetchImages() {
 const searchQuery = searchQueryInput.value.trim();
@@ -36,23 +45,23 @@ const searchQuery = searchQueryInput.value.trim();
           console.log(data.hits);
           console.log(data.hits.length);
           if (data.hits.length === 0) {
-              loadMoreBtn.classList.add('is-hidden');
+              // loadMoreBtn.classList.add('is-hidden');
               Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
-            return
+            
           }
           renderGallery(data.hits);
-          loadMoreBtn.classList.remove('is-hidden');
+          loadMoreBtn.show();
+          // loadMoreBtn.classList.remove('is-hidden');
           if (data.hits.length !== 0) {
             Notify.success(`Hooray! We found ${data.totalHits} images.`);
           }
           
           if (data.hits.length < 40 && data.hits.length!==0 ) {
             Notify.failure(`We're sorry, but you've reached the end of search results.`);
-            loadMoreBtn.classList.add('is-hidden');
-            return
+            loadMoreBtn.hide();
+            // loadMoreBtn.classList.add('is-hidden');
+            
           }
-          
-  
         })
         .catch(error => console.log(error));
 }
@@ -81,15 +90,17 @@ function renderGallery(images) {
   </div>
 </div>`
     })).join('');
-    galleryDiv.insertAdjacentHTML('beforeend', markup);
-    const lightbox = new SimpleLightbox('.gallery a', {
+  galleryDiv.insertAdjacentHTML('beforeend', markup);  
+  
+  const lightbox = new SimpleLightbox('.gallery a', {
     captionDelay: 250,
     captionsData: 'alt', 
-    });
-  gallery.refresh();
+  });
+  lightbox.refresh();
 }
 
 
+    
 
 
 
