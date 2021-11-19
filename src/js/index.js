@@ -32,6 +32,7 @@ function onloadMoreBtn() {
 
 function onSearchFormSabmit(e) {
   e.preventDefault();
+  loadMoreBtn.hide();
   page = 1;
   galleryDiv.innerHTML = '';
   fetchImages()
@@ -45,10 +46,10 @@ const searchQuery = searchQueryInput.value.trim();
           console.log(data.hits);
           console.log(data.hits.length);
           renderGallery(data.hits);
-          loadMoreBtn.show();
-          loadMoreBtn.show();
+          
             if (data.hits.length !== 0) {
               Notify.success(`Hooray! We found ${data.totalHits} images.`);
+              loadMoreBtn.show();
               
           }
           if (data.hits.length === 0) {
