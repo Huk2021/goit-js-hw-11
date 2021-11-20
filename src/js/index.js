@@ -4,6 +4,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import LoadMoreBtn from './load-more-btn';
+import { addBackToTop } from 'vanilla-back-to-top';
+import easyScroll from 'easy-scroll';
+
+
 
 const searchForm = document.querySelector('[id="search-form"]');
 const galleryDiv = document.querySelector('.gallery');
@@ -28,6 +32,13 @@ function onloadMoreBtn() {
   page += 1;
   fetchImages()
   loadMoreBtn.enable();
+ easyScroll({
+    'scrollableDomEle': window,
+    'direction': 'bottom',
+    'duration': 1000,
+    'easingPreset': 'easeInQuad',
+    'scrollAmount': 650
+});
 }
 
 function onSearchFormSabmit(e) {
@@ -107,10 +118,11 @@ function renderGallery(images) {
   
 }
 
-
+addBackToTop({
+  backgroundColor: 'white',
+  textColor: 'black',
+ scrollDuration: 100, 
+  showWhenScrollTopIs: 1,
+  zIndex: 1
+})
     
-
-
-
-
-  
