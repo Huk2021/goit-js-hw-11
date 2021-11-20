@@ -35,24 +35,30 @@ function onSearchFormSabmit(e) {
   loadMoreBtn.hide();
   page = 1;
   galleryDiv.innerHTML = '';
+  
   fetchImages()
   
 }
 function fetchImages() {
-const searchQuery = searchQueryInput.value.trim();
+  const searchQuery = searchQueryInput.value.trim();
+  if (searchQuery === '') {
+    Notify.failure(`Sorry, the query for an empty string could not be found. Please enter your query into the search box`)
+    return
+  }
     console.log(searchQuery);
-    searchImages(searchQuery, page, perPage)
+  searchImages(searchQuery, page, perPage)
+       
         .then(({ data }) => {
           console.log(data.hits);
           console.log(data.hits.length);
           renderGallery(data.hits);
-          
+         
             if (data.hits.length !== 0) {
               Notify.success(`Hooray! We found ${data.totalHits} images.`);
               loadMoreBtn.show();
               
           }
-          if (data.hits.length === 0) {
+          if (data.hits.length === 0 ) {
             Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
             loadMoreBtn.hide();
             return
